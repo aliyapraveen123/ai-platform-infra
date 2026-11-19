@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - configmap.yaml
+  - mongodb.yaml
+  - redis.yaml
+  - api.yaml
+  - worker.yaml
+  - frontend.yaml
+  - ingress.yaml
+  - worker-hpa.yaml
+images:
+  - name: docker.io/aliaparveen/ai-task-platform-api
+    newName: docker.io/aliaparveen/ai-task-platform-api
+    newTag: latest
+  - name: docker.io/aliaparveen/ai-task-platform-worker
+    newName: docker.io/aliaparveen/ai-task-platform-worker
+    newTag: latest
+  - name: docker.io/aliaparveen/ai-task-platform-frontend
+    newName: docker.io/aliaparveen/ai-task-platform-frontend
+    newTag: latest

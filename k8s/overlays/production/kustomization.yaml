@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: ai-task-platform-production
+resources:
+  - ../../base
+  - namespace.yaml
+patches:
+  - path: config-patch.yaml
+  - path: replicas-patch.yaml
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: ai-task-platform
+    patch: |-
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: tasks.example.com
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: tasks-tls
+      - op: replace
+        path: /spec/rules/0/host
+        value: tasks.example.com
+images:
+  - name: docker.io/aliaparveen/ai-task-platform-api
+    newName: docker.io/aliaparveen/ai-task-platform-api
+    newTag: production
+  - name: docker.io/aliaparveen/ai-task-platform-worker
+    newName: docker.io/aliaparveen/ai-task-platform-worker
+    newTag: production
+  - name: docker.io/aliaparveen/ai-task-platform-frontend
+    newName: docker.io/aliaparveen/ai-task-platform-frontend
+    newTag: production
