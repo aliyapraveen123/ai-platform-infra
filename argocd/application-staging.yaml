@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-github-user/ai-task-platform-infra.git
+    repoURL: https://github.com/aliyapraveen123/ai-platform-infra.git
     targetRevision: main
     path: k8s/overlays/staging
   destination:
